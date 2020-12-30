@@ -33,5 +33,26 @@ if text_or_voice == "text":
 elif text_or_voice == "voice":
     # initializing voice
     voice_engine = voice.init()
-    voice_engine.say("Hello, I am virtual assistant. How can I help you ? ")
+
+    print("Type 'q' at any time to quit")
+    voice_engine.say("Start Chatting with me.\n"
+                     "Remember you can quit chat by typing 'q' at any time.")
     voice_engine.runAndWait()
+
+    while quit_chat:
+        message = input("\nType your message: ")
+        if message == "q":
+            voice_engine.say("It was good talk. See you Later!")
+            voice_engine.runAndWait()
+            quit_chat = False
+        else:
+            try:
+                voice_engine.say(responses[message])
+                voice_engine.runAndWait()
+            except KeyError:
+                voice_engine.say("I can't understand, Suggestions:\n"
+                                 "   Make sure all words are spelled correctly.\n"
+                                 "   Try different keywords.\n"
+                                 "   Try more general keywords.\n"
+                                 "   Try fewer keywords")
+                voice_engine.runAndWait()
