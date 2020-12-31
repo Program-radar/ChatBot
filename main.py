@@ -37,6 +37,7 @@ while quit_chat:
     if message == "q":
         # quit chat
         print_and_say("It was good talk, See you later!")
+        quit_chat = False
     else:
         try:
             print_and_say(responses[message])
