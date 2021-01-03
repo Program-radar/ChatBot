@@ -1,6 +1,7 @@
 # chat bot main file
 import pyttsx3 as voice
 from wikipedia import summary as wiki_summary, PageError, DisambiguationError
+from googlesearch import search
 
 
 responses = {
@@ -39,6 +40,17 @@ while quit_chat:
         # quit chat
         print_and_say("It was good talk, See you later!")
         quit_chat = False
+
+    elif message == "search":
+        quit_search = "yes"
+        while quit_search.lower() == "yes":
+            voice_engine.say("Search on google")
+            voice_engine.runAndWait()
+            query = input("\nSearch on google: ")
+            for s in search(query, tld="com", num=10, stop=10, pause=2):
+                print(s)
+            quit_search = input("\ndo you want to search again?[yes,no] ")
+
     else:
         try:
             print_and_say(responses[message.lower()])
