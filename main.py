@@ -18,7 +18,7 @@ voice_engine = voice.init()
 
 def print_and_say(message_to_print):
     print(message_to_print)
-    voice_engine.say(message_to_say)
+    voice_engine.say(message_to_print)
     voice_engine.runAndWait()
 
 
