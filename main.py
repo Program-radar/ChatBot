@@ -16,9 +16,9 @@ responses = {
 voice_engine = voice.init()
 
 
-def print_and_say(message_to_print):
-    print(message_to_print)
-    voice_engine.say(message_to_print)
+def print_and_say(msg):
+    print(msg)
+    voice_engine.say(msg)
     voice_engine.runAndWait()
 
 
@@ -36,30 +36,45 @@ while quit_chat:
 
     elif message == "search":
         quit_search = "yes"
+
         while quit_search.lower() == "yes":
             voice_engine.say("Search on google")
             voice_engine.runAndWait()
             query = input("\nSearch on google: ")
             for s in search(query, tld="com", num=10, stop=10, pause=2):
                 print(s)
-            quit_search = input("\ndo you want to search again?[yes,no] ")
+
+            quit_search = input("\nDo you want to search again?[yes,no] ")
+
+    elif message == "wiki":
+        quit_wiki = "yes"
+
+        while quit_wiki == "yes":
+            try:
+                voice_engine.say("\nSearch on Wikipedia:")
+                voice_engine.runAndWait()
+                query = input("\nSearch on Wikipedia: ")
+
+                # show them by line by line
+                wiki = wiki_summary(query.title(), sentences=2)
+                wikiSentence = wiki.split(". ")
+                print_and_say("\n".join(wikiSentence))
+
+            except (PageError, DisambiguationError) as e:
+                # if document not found on wikipedia
+                print_and_say("Your search did not match any documents on Wikipedia\n")
+
+            finally:
+                quit_wiki = input("\nDo you want to search again?[yes,no] ")
 
     else:
         try:
             print_and_say(responses[message.lower()])
         except KeyError:
             # if response not found
-            # search for it in wikipedia
-            # and show a summary of it
-            try:
-                wiki = wiki_summary(message.title(), sentences=2)
-                wikiSentence = wiki.split(". ")
-                print_and_say("\n".join(wikiSentence))
-            except (PageError, DisambiguationError) as e:
-                # if document not found on wikipedia
-                print_and_say(f"{message} did not match any documents on Wikipedia\n"
-                              "Suggestions:\n"
-                              "    Make sure all words are spelled correctly.\n"
-                              "    Try different keywords.\n"
-                              "    Try more general keywords.\n"
-                              "    Try fewer keywords.")
+            print_and_say("I can't understand you.\n"
+                          "Suggestions:\n"
+                          "    Make sure all words are spelled correctly.\n"
+                          "    Try different keywords.\n"
+                          "    Try more general keywords.\n"
+                          "    Try fewer keywords.")
