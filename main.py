@@ -1,5 +1,6 @@
 # chat bot main file
 import pyttsx3 as voice
+from wikipedia import summary as wiki_summary, PageError, DisambiguationError
 
 
 responses = {
@@ -40,12 +41,20 @@ while quit_chat:
         quit_chat = False
     else:
         try:
-            print_and_say(responses[message])
+            print_and_say(responses[message.lower()])
         except KeyError:
             # if response not found
-            print_and_say("I can't understand, Suggestions:\n"
-                          "   Make sure all words are spelled correctly.\n"
-                          "   Try different keywords.\n"
-                          "   Try more general keywords.\n"
-                          "   Try fewer keywords.")
-            voice_engine.runAndWait()
+            # search for it in wikipedia
+            # and show a summary of it
+            try:
+                wiki = wiki_summary(message.title(), sentences=2)
+                wikiSentence = wiki.split(". ")
+                print_and_say("\n".join(wikiSentence))
+            except (PageError, DisambiguationError) as e:
+                # if document not found on wikipedia
+                print_and_say(f"{message} did not match any documents on Wikipedia\n"
+                              "Suggestions:\n"
+                              "    Make sure all words are spelled correctly.\n"
+                              "    Try different keywords.\n"
+                              "    Try more general keywords.\n"
+                              "    Try fewer keywords.")
