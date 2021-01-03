@@ -16,23 +16,16 @@ responses = {
 voice_engine = voice.init()
 
 
-# print first element and say second element
-# if program need something else to say pass argument to second parameter
-# if not, don't pass it and program will say exactly what printed
-def print_and_say(message_to_print, message_to_say=None):
+def print_and_say(message_to_print):
     print(message_to_print)
-    if message_to_say is None:
-        voice_engine.say(message_to_print)
-    else:
-        voice_engine.say(message_to_say)
+    voice_engine.say(message_to_say)
     voice_engine.runAndWait()
 
 
 quit_chat = True
 
 # start chat process
-print_and_say("Type 'q' at anytime to quit. ",
-              "Start chatting.\n Remember you can quit at any time by Typing 'q' ")
+print_and_say("Type 'q' at anytime to quit.")
 while quit_chat:
     message = input("\nType your message: ")
 
