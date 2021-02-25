@@ -1,11 +1,14 @@
-# ChatBot
-Chat bot builds with python that you can chat with it in the terminal.
+# ربات چت کردن
 
-Type 'search' to search on google.
+ربات چت با پایتون که می توانید با آن در ترمینال گپ بزنید.
 
-Type 'wiki' to find documents summary on wikipedia.
+را تایپ کنید "search" برای جستجو در گوگل
 
-If prompt asked you to continue or not, type 'yes' to continue 
-and type anything else to quit.
+را تایپ کنید "wiki" برای یافتن خلاصه اسناد در ویکی پدیا 
 
-Type 'q' at anytime to quit.
+اگر از شما خواست که ادامه دهید یا نه ، برای ادامه 
+را تایپ کنید "yes"
+
+و هر چیز دیگری را برای ترک تایپ کنید
+
+ را تایپ کنید "q" برای ترک هر زمان
